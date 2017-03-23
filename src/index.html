@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link href="css/style.css" rel="stylesheet">-->
+    <link href="./dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<style>
+    .row{
+        margin-top: 30px;
+    }
+</style>
+
+<body>
+<div class="container" id="app">
+    <div class="row" v-for="item of list">
+        <form class="form-inline">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="sr-only" for="input_one">Amount (in dollars)</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">@</div>
+                        <input type="text" class="form-control" v-model="item.text" id="{{$index}}" placeholder="Amount">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="sr-only" for="input_two">Amount (in dollars)</label>
+                    <textarea  v-model="item.textarea" id="" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <button type="button" @click="getModal(item)" class="btn btn-primary">编辑</button>
+            </div>
+        </form>
+
+    </div>
+    <!--模态框-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">text:</label>
+                            <input type="text" class="form-control" v-model="currentItem.text" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="control-label">textarea:</label>
+                            <textarea class="form-control" v-model="currentItem.textarea" id="message-text"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                    <!--<button type="button" class="btn btn-primary">Send message</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="./dist/js/jquery.js"></script>
+<script src="./dist/js/vue.min.js"></script>
+<script src="./dist/js/bootstrap.min.js"></script>
+<script>
+    var  app = new Vue({
+        el:'#app',
+        data:{
+            list:[{text:"text1",textarea:"textarea1"},
+                {text:"text2",textarea:"textarea2"},
+                {text:"text3",textarea:"textarea3"}],
+            currentItem:{},
+            fuck:{text:"fuck",textarea:"fuckyou"}
+        },
+        methods:{
+            getModal:function (item) {
+                var vm =this;
+//                console.log(this);
+                $('#exampleModal').modal('show');
+                vm.currentItem = item;
+                console.log(vm.currentItem)
+            }
+        }
+    })
+</script>
+</body>
+
+</html>
